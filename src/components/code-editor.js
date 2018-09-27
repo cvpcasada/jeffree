@@ -24,6 +24,11 @@ const StyledEditor = styled(Editor)`
     height: 100%;
   }
 
+  .cm-s-material .CodeMirror-gutters,
+  .cm-s-material.CodeMirror {
+    background: rgb(31, 35, 44);
+  }
+
 `
 
 export default function CodeEditor() {

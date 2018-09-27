@@ -41,9 +41,8 @@ export const Tab = styled.button.attrs({
   color: #fff;
 
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 14px;
   font-size: 17px;
-  min-width: 60px;
 
   &:focus {
     outline: none;

@@ -4,13 +4,17 @@ import styled from "styled-components";
 
 const Panels = styled.div`
   display: flex;
-  flex-grow: 1;
+  flex: 1;
 `;
 
 const DraggableSplitter = styled.div`
-  background: red;
+  background: rgb(53, 58, 73);
   cursor: col-resize;
-  width: 0.2rem;
+  width: 4px;
+  border: 1rem solid rgb(31, 35, 44);
+  border-top: 0.4rem solid rgb(31, 35, 44);
+  border-bottom: 0.4rem solid rgb(31, 35, 44);
+  ;
 `;
 
 export default class SplitPane extends React.Component {
@@ -44,6 +48,10 @@ export default class SplitPane extends React.Component {
 
   render() {
     const children = React.Children.toArray(this.props.children);
+
+    if (children.length === 1) {
+      return children;
+    }
 
     return (
       <Panels
