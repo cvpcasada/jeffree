@@ -1,0 +1,17 @@
+import React from "react";
+import ErrorCatcher from "./error-catcher";
+import { CustomWidgetContext } from "./state-provider";
+
+import styled from "styled-components";
+
+export default function LivePreview() {
+  return (
+    <CustomWidgetContext.Consumer>
+      {({ error, onComponentError, element = null }) =>
+        !error && (
+          <ErrorCatcher onError={onComponentError}>{element}</ErrorCatcher>
+        )
+      }
+    </CustomWidgetContext.Consumer>
+  );
+}
