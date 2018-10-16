@@ -2,8 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import fn from "../utils/fn";
 
+const isString = val => typeof val === "string" || val instanceof String;
+
+const getCustomVal = (obj, key) => isString(obj[key]) ? obj[key] : obj[key].value;
+
 const parseBars = (obj, str) =>
-  str.replace(/{\s*([\w\.]+)\s*}/g, (tag, match) => obj[match] || tag);
+  str.replace(/{\s*([\w.]+)\s*}/g, (tag, match) => getCustomVal(obj, match) || tag);
 
 function attemptParse(json, str) {
   try {
@@ -23,7 +27,6 @@ class CustomElement extends React.Component {
   containerRef = { current: null };
 
   componentDidMount() {
-    console.log('mounting element');
     this.props.onInitialize(this.containerRef.current, this.props.events);
   }
 
@@ -36,13 +39,11 @@ class CustomElement extends React.Component {
     let { className, html, json } = this.props;
 
     return (
-      (
-        <div
-          ref={ref => (this.containerRef.current = ref)}
-          className={className}
-          dangerouslySetInnerHTML={{ __html: attemptParse(json, html) }}
-        />
-      )
+      <div
+        ref={ref => (this.containerRef.current = ref)}
+        className={className}
+        dangerouslySetInnerHTML={{ __html: attemptParse(json, html) }}
+      />
     );
   }
 }
