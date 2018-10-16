@@ -35,30 +35,37 @@ export default class CustomWidgetStateProvider extends React.Component {
     setUpdateCallback: cb => this.setState({ update: cb }),
     render: Element => {
       this.setState({
-        element:
-          typeof Element === "function" ? (
-            <Element events={this.props.events} />
-          ) : (
-            Element
-          )
+        element: (
+          <CustomWidgetContext.Consumer>
+            {({ events }) =>
+              typeof Element === "function" ? (
+                <Element events={events} />
+              ) : (
+                React.cloneElement(Element, {
+                  ...Element.props,
+                  events
+                })
+              )
+            }
+          </CustomWidgetContext.Consumer>
+        )
       });
     },
     renderWidget: (onInitialize = fn, onUpdate = fn) => {
-      const {
-        code: { html, css, json },
-        events
-      } = this.props;
-
       this.setState({
         element: (
-          <CustomElement
-            html={html}
-            css={css}
-            json={json}
-            events={events}
-            onInitialize={onInitialize}
-            onUpdate={onUpdate}
-          />
+          <CustomWidgetContext.Consumer>
+            {({ events, code: { html, css, json } }) => (
+              <CustomElement
+                html={html}
+                css={css}
+                json={json}
+                events={events}
+                onInitialize={onInitialize}
+                onUpdate={onUpdate}
+              />
+            )}
+          </CustomWidgetContext.Consumer>
         )
       });
     }
@@ -108,15 +115,15 @@ export default class CustomWidgetStateProvider extends React.Component {
     this.transpile(code.js);
   }
 
-  componentDidUpdate(prevProps) {
-    if (
-      prevProps.mode !== this.props.mode ||
-      prevProps.code.html !== this.props.code.html ||
-      prevProps.code.css !== this.props.code.css
-    ) {
-      this.transpile(this.props.code.js);
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (
+  //     prevProps.mode !== this.props.mode ||
+  //     prevProps.code.html !== this.props.code.html ||
+  //     prevProps.code.css !== this.props.code.css
+  //   ) {
+  //     this.transpile(this.props.code.js);
+  //   }
+  // }
 
   render() {
     const {

@@ -38,15 +38,19 @@
     "loader-utils": "1.1.0",
     "mini-css-extract-plugin": "0.4.3",
     "optimize-css-assets-webpack-plugin": "5.0.1",
+    "pick-random": "^2.0.0",
     "postcss-flexbugs-fixes": "4.1.0",
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "6.0.6",
     "postcss-safe-parser": "4.0.1",
+    "random-int": "^1.0.0",
     "react": "^16.5.2",
     "react-app-polyfill": "^0.1.0",
     "react-codemirror2": "^5.1.0",
     "react-dev-utils": "^6.0.0",
     "react-dom": "^16.5.2",
+    "react-dropdown": "^1.6.2",
+    "react-powerplug": "^1.0.0-rc.1",
     "resolve": "1.8.1",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.0",
@@ -63,7 +67,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "clean": "rm -rf build"
   },
   "eslintConfig": {
     "extends": "react-app"
